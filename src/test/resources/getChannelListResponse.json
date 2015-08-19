@@ -1,0 +1,57 @@
+{
+  "ok": true,
+  "channels": [
+    {
+      "id": "CHANNEL1",
+      "name": "android",
+      "is_channel": true,
+      "created": 1431248180,
+      "creator": "TESTUSER2",
+      "is_archived": false,
+      "is_general": false,
+      "is_member": false,
+      "members": [
+        "TESTUSER2",
+        "TESTUSER3"
+      ],
+      "topic": {
+        "value": "",
+        "creator": "",
+        "last_set": 0
+      },
+      "purpose": {
+        "value": "",
+        "creator": "",
+        "last_set": 0
+      },
+      "num_members": 2
+    },
+    {
+      "id": "CHANNEL2",
+      "name": "general",
+      "is_channel": true,
+      "created": 1420403160,
+      "creator": "TESTUSER1",
+      "is_archived": false,
+      "is_general": true,
+      "is_member": true,
+      "members": [
+        "TESTUSER1",
+        "TESTUSER2",
+        "TESTUSER3",
+        "TESTUSER4"
+      ],
+      "topic": {
+        "value": "",
+        "creator": "",
+        "last_set": 0
+      },
+      "purpose": {
+        "value": "This channel is for team-wide communication and announcements. All team members are in this channel.",
+        "creator": "",
+        "last_set": 0
+      },
+      "num_members": 4
+    }
+  ]
+}
