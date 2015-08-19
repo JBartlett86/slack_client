@@ -27,23 +27,12 @@ public class ChannelsWrapper {
         return ok;
     }
 
-    public void setOk(boolean ok) {
-        this.ok = ok;
-    }
-
     public String getError() {
         return error;
-    }
-
-    public void setError(String error) {
-        this.error = error;
     }
 
     public List<Channel> getChannels() {
         return channels;
     }
 
-    public void setChannels(List<Channel> channels) {
-        this.channels = channels;
-    }
 }

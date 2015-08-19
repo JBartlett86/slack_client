@@ -29,31 +29,16 @@ public class ChannelWrapper {
         return ok;
     }
 
-    public void setOk(boolean ok) {
-        this.ok = ok;
-    }
-
     public boolean isAlreadyInChannel() {
         return alreadyInChannel;
-    }
-
-    public void setAlreadyInChannel(boolean alreadyInChannel) {
-        this.alreadyInChannel = alreadyInChannel;
     }
 
     public String getError() {
         return error;
     }
 
-    public void setError(String error) {
-        this.error = error;
-    }
-
     public Channel getChannel() {
         return channel;
     }
 
-    public void setChannel(Channel channel) {
-        this.channel = channel;
-    }
 }

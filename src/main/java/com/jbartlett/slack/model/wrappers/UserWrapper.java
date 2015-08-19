@@ -27,23 +27,12 @@ public class UserWrapper {
         return ok;
     }
 
-    public void setOk(boolean ok) {
-        this.ok = ok;
-    }
-
     public String getError() {
         return error;
-    }
-
-    public void setError(String error) {
-        this.error = error;
     }
 
     public List<User> getUsers() {
         return users;
     }
 
-    public void setUsers(List<User> users) {
-        this.users = users;
-    }
 }
