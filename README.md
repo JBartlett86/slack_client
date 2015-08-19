@@ -4,6 +4,7 @@ A Java based client for [Slack](http://slack.com) that allows simple access to t
 
 [![Build Status](https://travis-ci.org/JBartlett86/slack_client.svg?branch=master)](https://travis-ci.org/JohnBartlett/slack_client)
 [![codecov.io](http://codecov.io/github/JBartlett86/slack_client/coverage.svg?branch=master)](http://codecov.io/github/JBartlett86/slack_client?branch=master)
+[![Dependency Status](https://www.versioneye.com/user/projects/55d506106dbe17001c0001b2/badge.svg?style=flat)](https://www.versioneye.com/user/projects/55d506106dbe17001c0001b2)
 
 Authentication is required before the client can be used and is performing using OAuth 2.0.
 
