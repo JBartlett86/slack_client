@@ -42,7 +42,7 @@ public class SlackClient {
         if (client != null) {
             builder.setClient(client);
         }
-        builder.setLogLevel(RestAdapter.LogLevel.FULL);
+        //builder.setLogLevel(RestAdapter.LogLevel.FULL);
         builder.setRequestInterceptor(new RequestInterceptor() {
 
             @Override
