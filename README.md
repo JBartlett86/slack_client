@@ -3,6 +3,7 @@
 A Java based client for [Slack](http://slack.com) that allows simple access to the API utilising the awesome [Retrofit](http://square.github.io/retrofit/).
 
 [![Build Status](https://travis-ci.org/JBartlett86/slack_client.svg?branch=master)](https://travis-ci.org/JohnBartlett/slack_client)
+[![codecov.io](http://codecov.io/github/JBartlett86/slack_client/coverage.svg?branch=master)](http://codecov.io/github/JBartlett86/slack_client?branch=master)
 
 Authentication is required before the client can be used and is performing using OAuth 2.0.
 
@@ -63,6 +64,15 @@ This method is used for getting details of the channels within the team.
 
 ```java
 List<Channel> channels = slackClient.getChannelList();
+```
+
+### [channels.info](https://api.slack.com/methods/channels.info)
+
+This method is used to find out information about a channel.
+It provides more details than those contained in the channels.list response.
+
+```java
+Channel channel = slackClient.getChannelInfo("Channel ID Here");
 ```
 
 ### [channels.join](https://api.slack.com/methods/channels.list)
