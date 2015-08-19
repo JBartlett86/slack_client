@@ -52,80 +52,40 @@ public class User {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public boolean isDeleted() {
         return deleted;
     }
 
-    public void setDeleted(boolean deleted) {
-        this.deleted = deleted;
-    }
-
     public String getColour() {
         return colour;
-    }
-
-    public void setColour(String colour) {
-        this.colour = colour;
     }
 
     public boolean isAdmin() {
         return admin;
     }
 
-    public void setAdmin(boolean admin) {
-        this.admin = admin;
-    }
-
     public boolean isOwner() {
         return owner;
-    }
-
-    public void setOwner(boolean owner) {
-        this.owner = owner;
     }
 
     public boolean isPrimaryOwner() {
         return primaryOwner;
     }
 
-    public void setPrimaryOwner(boolean primaryOwner) {
-        this.primaryOwner = primaryOwner;
-    }
-
     public boolean isRestricted() {
         return restricted;
-    }
-
-    public void setRestricted(boolean restricted) {
-        this.restricted = restricted;
     }
 
     public boolean isUltraRestricted() {
         return ultraRestricted;
     }
 
-    public void setUltraRestricted(boolean ultraRestricted) {
-        this.ultraRestricted = ultraRestricted;
-    }
-
     public Profile getProfile() {
         return profile;
-    }
-
-    public void setProfile(Profile profile) {
-        this.profile = profile;
     }
 
     public String getFirstName() {
@@ -182,50 +142,25 @@ public class User {
             return firstName;
         }
 
-        public void setFirstName(String firstName) {
-            this.firstName = firstName;
-        }
-
         public String getLastName() {
             return lastName;
-        }
-
-        public void setLastName(String lastName) {
-            this.lastName = lastName;
         }
 
         public String getRealName() {
             return realName;
         }
 
-        public void setRealName(String realName) {
-            this.realName = realName;
-        }
-
         public String getEmail() {
             return email;
-        }
-
-        public void setEmail(String email) {
-            this.email = email;
         }
 
         public String getSkype() {
             return skype;
         }
 
-        public void setSkype(String skype) {
-            this.skype = skype;
-        }
-
         public String getPhone() {
             return phone;
         }
-
-        public void setPhone(String phone) {
-            this.phone = phone;
-        }
-
 
     }
 }

@@ -40,55 +40,28 @@ public class Authority {
         return ok;
     }
 
-    public void setOk(boolean ok) {
-        this.ok = ok;
-    }
-
     public String getError() {
         return error;
-    }
-
-    public void setError(String error) {
-        this.error = error;
     }
 
     public String getTeam() {
         return team;
     }
 
-    public void setTeam(String team) {
-        this.team = team;
-    }
-
     public String getTeamId() {
         return teamId;
-    }
-
-    public void setTeamId(String teamId) {
-        this.teamId = teamId;
     }
 
     public String getUrl() {
         return url;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
     public String getUser() {
         return user;
-    }
-
-    public void setUser(String user) {
-        this.user = user;
     }
 
     public String getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
 }

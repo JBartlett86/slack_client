@@ -74,120 +74,60 @@ public class Channel {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public boolean isChannel() {
         return channel;
     }
 
-    public void setChannel(boolean channel) {
-        this.channel = channel;
-    }
-
     public Long getCreated() {
         return created;
-    }
-
-    public void setCreated(Long created) {
-        this.created = created;
     }
 
     public String getCreator() {
         return creator;
     }
 
-    public void setCreator(String creator) {
-        this.creator = creator;
-    }
-
     public boolean isArchived() {
         return archived;
-    }
-
-    public void setArchived(boolean archived) {
-        this.archived = archived;
     }
 
     public boolean isGeneral() {
         return general;
     }
 
-    public void setGeneral(boolean general) {
-        this.general = general;
-    }
-
     public boolean isMember() {
         return member;
-    }
-
-    public void setMember(boolean member) {
-        this.member = member;
     }
 
     public String getLastRead() {
         return lastRead;
     }
 
-    public void setLastRead(String lastRead) {
-        this.lastRead = lastRead;
-    }
-
     public Latest getLatest() {
         return latest;
-    }
-
-    public void setLatest(Latest latest) {
-        this.latest = latest;
     }
 
     public Integer getUnread() {
         return unread;
     }
 
-    public void setUnread(Integer unread) {
-        this.unread = unread;
-    }
-
     public Integer getUnreadDisplay() {
         return unreadDisplay;
-    }
-
-    public void setUnreadDisplay(Integer unreadDisplay) {
-        this.unreadDisplay = unreadDisplay;
     }
 
     public List<String> getMembers() {
         return members;
     }
 
-    public void setMembers(List<String> members) {
-        this.members = members;
-    }
-
     public ValueHolder getTopic() {
         return topic;
     }
 
-    public void setTopic(ValueHolder topic) {
-        this.topic = topic;
-    }
-
     public ValueHolder getPurpose() {
         return purpose;
-    }
-
-    public void setPurpose(ValueHolder purpose) {
-        this.purpose = purpose;
     }
 
     public class Latest {
@@ -216,41 +156,22 @@ public class Channel {
             return user;
         }
 
-        public void setUser(String user) {
-            this.user = user;
-        }
-
         public String getType() {
             return type;
-        }
-
-        public void setType(String type) {
-            this.type = type;
         }
 
         public String getSubType() {
             return subType;
         }
 
-        public void setSubType(String subType) {
-            this.subType = subType;
-        }
-
         public String getText() {
             return text;
-        }
-
-        public void setText(String text) {
-            this.text = text;
         }
 
         public String getTimestamp() {
             return timestamp;
         }
 
-        public void setTimestamp(String timestamp) {
-            this.timestamp = timestamp;
-        }
     }
 
     public class ValueHolder {
@@ -271,25 +192,14 @@ public class Channel {
             return value;
         }
 
-        public void setValue(String value) {
-            this.value = value;
-        }
-
         public String getCreator() {
             return creator;
-        }
-
-        public void setCreator(String creator) {
-            this.creator = creator;
         }
 
         public Integer getLastSet() {
             return lastSet;
         }
 
-        public void setLastSet(Integer lastSet) {
-            this.lastSet = lastSet;
-        }
     }
 
 }
