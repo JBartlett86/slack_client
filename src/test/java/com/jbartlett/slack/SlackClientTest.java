@@ -81,6 +81,38 @@ public class SlackClientTest {
     }
 
     /**
+     * Test users.list api call using retrofit, tests the following;
+     *
+     * 1) The correct request format is sent
+     * 2) A successful response is correctly handled and returned
+     */
+    @Test
+    public void testGetUserList() throws Exception {
+        // mock the expected response from the retrofit call and also validate the request format
+        SlackClient sc = new SlackClient("accesstoken", new Client() {
+            @Override
+            public Response execute(Request request) throws IOException {
+                assertEquals("https://slack.com/api/users.list?token=accesstoken", request.getUrl());
+                return new Response("urlhere", 200, "nothing", Collections.EMPTY_LIST, new TypedFile("application/json", new File("src/test/resources/getUserListResponse.json")));
+            }
+        });
+
+        // validate the correct number of records have been parsed
+        List<User> userList = sc.getUserList();
+        assertEquals(2, userList.size());
+
+        Map<String, User> userByName = new HashMap<String, User>();
+        for (User user : userList) {
+            userByName.put(user.getName(), user);
+        }
+
+        // validate properties were mapped as expected
+        assertTrue(userByName.containsKey("john"));
+        assertTrue(userByName.containsKey("jane"));
+
+    }
+
+    /**
      * Test channels.list api call using retrofit, tests the following;
      *
      * 1) The correct request format is sent
@@ -114,35 +146,37 @@ public class SlackClientTest {
     }
 
     /**
-     * Test users.list api call using retrofit, tests the following;
+     * Test channels.info api call using retrofit, tests the following;
      *
      * 1) The correct request format is sent
      * 2) A successful response is correctly handled and returned
      */
     @Test
-    public void testGetUserList() throws Exception {
+    public void testGetChannelInfo() throws Exception {
+
         // mock the expected response from the retrofit call and also validate the request format
         SlackClient sc = new SlackClient("accesstoken", new Client() {
             @Override
             public Response execute(Request request) throws IOException {
-                assertEquals("https://slack.com/api/users.list?token=accesstoken", request.getUrl());
-                return new Response("urlhere", 200, "nothing", Collections.EMPTY_LIST, new TypedFile("application/json", new File("src/test/resources/getUserListResponse.json")));
+                assertEquals("https://slack.com/api/channels.info?channel=testchannel&token=accesstoken", request.getUrl());
+                return new Response("urlhere", 200, "nothing", Collections.EMPTY_LIST, new TypedFile("application/json", new File("src/test/resources/getChannelInfoResponse.json")));
             }
         });
 
-        // validate the correct number of records have been parsed
-        List<User> userList = sc.getUserList();
-        assertEquals(2, userList.size());
+        Channel channel = sc.getChannelInfo("testchannel");
+        assertNotNull(channel);
+        assertEquals("testchannel", channel.getName());
 
-        Map<String, User> userByName = new HashMap<String, User>();
-        for (User user : userList) {
-            userByName.put(user.getName(), user);
-        }
+        // test various values set only within the channels.info method call.
+        Channel.Latest latest = channel.getLatest();
+        assertNotNull(latest);
+        assertEquals("message", latest.getType());
+        assertEquals("channel_join", latest.getSubType());
+        assertEquals("<TESTUSER1|johndoe> has joined the channel", latest.getText());
 
-        // validate properties were mapped as expected
-        assertTrue(userByName.containsKey("john"));
-        assertTrue(userByName.containsKey("jane"));
-
+        Channel.ValueHolder purpose = channel.getPurpose();
+        assertNotNull(purpose);
+        assertEquals("This channel is for team-wide communication and announcements. All team members are in this channel.", purpose.getValue());
     }
 
     /**

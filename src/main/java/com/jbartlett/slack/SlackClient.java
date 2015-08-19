@@ -91,6 +91,19 @@ public class SlackClient {
     }
 
     /**
+     * Get more detailed channel information than what is returned from the getChannelList() results
+     * @param channel The Channel Id
+     * @return Channel
+     */
+    public Channel getChannelInfo(String channel) throws Exception {
+        ChannelWrapper cw = slackService.getChannelInfo(channel);
+        if (!cw.isOk()) {
+            throw new Exception(cw.getError());
+        }
+        return cw.getChannel();
+    }
+
+    /**
      * Gives ability to join a channel with a given name, if channel doesn't exist it will be created.
      * @param channel The channel name
      * @return Channel

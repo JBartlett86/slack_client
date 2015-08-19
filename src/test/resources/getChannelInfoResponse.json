@@ -1,0 +1,37 @@
+{
+  "ok": true,
+  "channel": {
+    "id": "CHANNELID",
+    "name": "testchannel",
+    "is_channel": true,
+    "created": 1420403160,
+    "creator": "TESTUSER2",
+    "is_archived": false,
+    "is_general": true,
+    "is_member": true,
+    "last_read": "1420467627.000003",
+    "latest": {
+      "user": "TESTUSER1",
+      "type": "message",
+      "subtype": "channel_join",
+      "text": "<TESTUSER1|johndoe> has joined the channel",
+      "ts": "1431272775.000002"
+    },
+    "unread_count": 1,
+    "unread_count_display": 0,
+    "members": [
+      "TESTUSER1",
+      "TESTUSER2"
+    ],
+    "topic": {
+      "value": "",
+      "creator": "",
+      "last_set": 0
+    },
+    "purpose": {
+      "value": "This channel is for team-wide communication and announcements. All team members are in this channel.",
+      "creator": "",
+      "last_set": 0
+    }
+  }
+}

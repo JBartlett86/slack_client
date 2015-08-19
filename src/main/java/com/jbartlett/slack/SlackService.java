@@ -24,6 +24,9 @@ public interface SlackService {
     @GET("/channels.list")
     public ChannelsWrapper getChannelList();
 
+    @GET("/channels.info")
+    public ChannelWrapper getChannelInfo(@Query("channel") String channel);
+
     @PUT("/channels.join")
     public ChannelWrapper joinChannel(@Query("name") String channel);
 
