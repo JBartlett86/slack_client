@@ -76,8 +76,11 @@ public class SlackClientTest {
         Authority authority = sc.getAuthority();
         assertNotNull(authority);
         assertTrue(authority.isOk());
+        assertEquals("TESTTEAMID", authority.getTeamId());
         assertEquals("testteam", authority.getTeam());
         assertEquals("TESTUSER1", authority.getUserId());
+        assertEquals("test", authority.getUser());
+        assertEquals("https://testteam.slack.com/", authority.getUrl());
     }
 
     /**
@@ -110,6 +113,21 @@ public class SlackClientTest {
         assertTrue(userByName.containsKey("john"));
         assertTrue(userByName.containsKey("jane"));
 
+        // validate individual user attributes mapped correctly
+        User user = userByName.get("john");
+        assertEquals("TESTUSER1", user.getId());
+        assertEquals("john", user.getName());
+        assertFalse(user.isDeleted());
+        assertEquals("3c989f", user.getColour());
+        assertEquals("John Doe", user.getRealName());
+        assertEquals("John", user.getFirstName());
+        assertEquals("Doe", user.getLastName());
+        assertEquals("john@doe.com", user.getEmail());
+        assertTrue(user.isAdmin());
+        assertTrue(user.isOwner());
+        assertFalse(user.isPrimaryOwner());
+        assertFalse(user.isRestricted());
+        assertFalse(user.isUltraRestricted());
     }
 
     /**
@@ -143,6 +161,14 @@ public class SlackClientTest {
         assertFalse(channelMap.get("android").isMember());
         assertEquals(2, channelMap.get("android").getMembers().size());
 
+        Channel channel = channelMap.get("android");
+        assertEquals("CHANNEL1", channel.getId());
+        assertEquals("android", channel.getName());
+        assertTrue(channel.isChannel());
+        assertEquals(new Long("1431248180"), channel.getCreated());
+        assertEquals("TESTUSER2", channel.getCreator());
+        assertFalse(channel.isArchived());
+        assertFalse(channel.isGeneral());
     }
 
     /**

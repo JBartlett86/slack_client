@@ -23,8 +23,8 @@
         "image_72": "",
         "image_192": ""
       },
-      "is_admin": false,
-      "is_owner": false,
+      "is_admin": true,
+      "is_owner": true,
       "is_primary_owner": false,
       "is_restricted": false,
       "is_ultra_restricted": false,
