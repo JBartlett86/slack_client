@@ -2,7 +2,7 @@
 
 A Java based client for [Slack](http://slack.com) that allows simple access to the API utilising the awesome [Retrofit](http://square.github.io/retrofit/).
 
-[![Build Status](https://travis-ci.org/JohnBartlett/slack_client.svg?branch=master)](https://travis-ci.org/JohnBartlett/slack_client)
+[![Build Status](https://travis-ci.org/JBartlett86/slack_client.svg?branch=master)](https://travis-ci.org/JohnBartlett/slack_client)
 
 Authentication is required before the client can be used and is performing using OAuth 2.0.
 
