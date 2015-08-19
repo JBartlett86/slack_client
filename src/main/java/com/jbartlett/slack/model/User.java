@@ -84,10 +84,6 @@ public class User {
         return ultraRestricted;
     }
 
-    public Profile getProfile() {
-        return profile;
-    }
-
     public String getFirstName() {
         return profile.getFirstName();
     }

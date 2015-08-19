@@ -123,6 +123,8 @@ public class SlackClientTest {
         assertEquals("John", user.getFirstName());
         assertEquals("Doe", user.getLastName());
         assertEquals("john@doe.com", user.getEmail());
+        assertEquals(null, user.getSkype());
+        assertEquals(null, user.getPhone());
         assertTrue(user.isAdmin());
         assertTrue(user.isOwner());
         assertFalse(user.isPrimaryOwner());
@@ -192,17 +194,30 @@ public class SlackClientTest {
         Channel channel = sc.getChannelInfo("testchannel");
         assertNotNull(channel);
         assertEquals("testchannel", channel.getName());
+        assertEquals("1420467627.000003", channel.getLastRead());
+        assertEquals(new Integer(1), channel.getUnread());
+        assertEquals(new Integer(0), channel.getUnreadDisplay());
 
         // test various values set only within the channels.info method call.
         Channel.Latest latest = channel.getLatest();
         assertNotNull(latest);
+        assertEquals("TESTUSER1", latest.getUser());
         assertEquals("message", latest.getType());
         assertEquals("channel_join", latest.getSubType());
         assertEquals("<TESTUSER1|johndoe> has joined the channel", latest.getText());
+        assertEquals("1431272775.000002", latest.getTimestamp());
+
+        Channel.ValueHolder topic = channel.getTopic();
+        assertNotNull(topic);
+        assertEquals("", topic.getValue());
+        assertEquals("", topic.getCreator());
+        assertEquals(new Integer(0), topic.getLastSet());
 
         Channel.ValueHolder purpose = channel.getPurpose();
         assertNotNull(purpose);
         assertEquals("This channel is for team-wide communication and announcements. All team members are in this channel.", purpose.getValue());
+        assertEquals("", purpose.getCreator());
+        assertEquals(new Integer(0), purpose.getLastSet());
     }
 
     /**
