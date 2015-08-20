@@ -51,12 +51,60 @@ It provides more details than those contained in the channels.list response.
 Channel channel = slackClient.getChannelInfo("Channel ID Here");
 ```
 
+### [channels.create](https://api.slack.com/methods/channels.create)
+
+This method is used to create a channel.
+
+```java
+Channel channel = slackClient.createChannel("Channel Name Here");
+```
+
+### [channels.archive](https://api.slack.com/methods/channels.archive)
+
+This method is used to archive a channel.
+
+```java
+Channel channel = slackClient.archiveChannel("Channel ID Here");
+```
+
+### [channels.unarchive](https://api.slack.com/methods/channels.unarchive)
+
+This method is used to unarchive a channel.
+
+```java
+Channel channel = slackClient.unarchiveChannel("Channel ID Here");
+```
+
 ### [channels.join](https://api.slack.com/methods/channels.list)
 
 This method is used to join a channel. If the channel does not exist, it is created.
 
 ```java
 Channel channel = slackClient.joinChannel("Channel ID Here");
+```
+
+### [channels.kick](https://api.slack.com/methods/channels.kick)
+
+This method is used to kick a user from a channel.
+
+```java
+Channel channel = slackClient.kickChannel("Channel ID Here", "User ID to Kick Here");
+```
+
+### [channels.leave](https://api.slack.com/methods/channels.leave)
+
+This method is used to leave a channel.
+
+```java
+Channel channel = slackClient.leaveChannel("Channel ID Here");
+```
+
+### [channels.rename](https://api.slack.com/methods/channels.rename)
+
+This method is used to rename a channel.
+
+```java
+Channel channel = slackClient.renameChannel("Channel ID Here", "New Channel Name Here");
 ```
 
 If an error occurs with any of the API calls an exception is thrown where the error reason is the message of the exception.
