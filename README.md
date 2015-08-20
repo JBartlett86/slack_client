@@ -10,10 +10,10 @@ Authentication is required before the client can be used and is performing using
 
 ## Accessing the Slack Rest API
 
-The Slack Rest API is accessed by instantiating the SlackClient using a valid access token, this can be retrieved from the Credential returned during authenitciation
+The Slack Rest API is accessed by instantiating the SlackClient using a valid access token.
 
 ```java
-SlackClient slackClient = new SlackClient("Access Token Here"); // credential.getAccessToken()
+SlackClient slackClient = new SlackClient("Access Token Here");
 ```
 
 Once a slack client is available the following API methods have currently been implemented.
