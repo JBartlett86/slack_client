@@ -9,6 +9,9 @@ buildscript {
 apply plugin: 'java'
 apply plugin: "jacoco"
 
+group = project_group
+version = project_version
+
 repositories {
     jcenter()
     mavenCentral()
@@ -30,3 +33,7 @@ jacocoTestReport {
 }
 
 check.dependsOn jacocoTestReport
+
+jar {
+    baseName = 'slack-client'
+}
