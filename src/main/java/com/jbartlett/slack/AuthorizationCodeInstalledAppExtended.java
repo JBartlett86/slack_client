@@ -30,6 +30,36 @@ public class AuthorizationCodeInstalledAppExtended extends AuthorizationCodeInst
     }
 
     /**
+     * Authorizes the installed application to access user's protected data.
+     *
+     * @param userId user ID or {@code null} if not using a persisted credential store
+     * @return credential
+     */
+    public Credential authorize(String userId) throws IOException {
+        VerificationCodeReceiver receiver = getReceiver();
+        try {
+            AuthorizationCodeFlow flow = getFlow();
+            Credential credential = flow.loadCredential(userId);
+            if (credential != null
+                    && (credential.getRefreshToken() != null || credential.getExpiresInSeconds() == null || credential.getExpiresInSeconds() > 60)) {
+                return credential;
+            }
+            // open in browser
+            String redirectUri = receiver.getRedirectUri();
+            AuthorizationCodeRequestUrl authorizationUrl =
+                    flow.newAuthorizationUrl().setRedirectUri(redirectUri);
+            onAuthorization(authorizationUrl);
+            // receive authorization code and exchange it for an access token
+            String code = receiver.waitForCode();
+            TokenResponse response = flow.newTokenRequest(code).setRedirectUri(redirectUri).execute();
+            // store credential and return it
+            return flow.createAndStoreCredential(response, userId);
+        } finally {
+            receiver.stop();
+        }
+    }
+
+    /**
      * If here are any query arguments available add them to the AuthorizationCodeRequestUrl now.
      */
     @Override
@@ -39,4 +69,6 @@ public class AuthorizationCodeInstalledAppExtended extends AuthorizationCodeInst
         }
         super.onAuthorization(authorizationUrl);
     }
+
+
 }
