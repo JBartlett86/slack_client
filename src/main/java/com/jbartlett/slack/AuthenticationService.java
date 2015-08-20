@@ -27,7 +27,7 @@ import java.util.Map;
  */
 public class AuthenticationService {
 
-    private static final File DATA_STORE_DIR = new File(System.getProperty("user.home"), ".store/oauth2");
+    private static final File DATA_STORE_DIR = new File(System.getProperty("user.home"), ".store/oauth2-slack");
 
     private HttpTransport httpTransport;
 
