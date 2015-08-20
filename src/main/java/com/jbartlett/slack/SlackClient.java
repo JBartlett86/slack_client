@@ -40,6 +40,10 @@ public class SlackClient {
         this(accessToken, logLevel, null);
     }
 
+    public SlackClient(String accessToken, Client client) {
+        this(accessToken, LogLevel.BASIC, client);
+    }
+
     public SlackClient(final String accessToken, RestAdapter.LogLevel logLevel, final Client client) {
         Builder builder = new Builder()
                 .setEndpoint("https://slack.com/api/");
