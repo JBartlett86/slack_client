@@ -11,6 +11,7 @@ import retrofit.RestAdapter;
 import retrofit.client.Client;
 
 import java.util.List;
+import java.util.Map;
 
 import static retrofit.RestAdapter.Builder;
 import static retrofit.RestAdapter.LogLevel;
@@ -93,11 +94,11 @@ public class SlackClient {
 
     /**
      * Get more detailed channel information than what is returned from the getChannelList() results
-     * @param channel The Channel Id
+     * @param channelId The Channel Id
      * @return Channel
      */
-    public Channel getChannelInfo(String channel) throws Exception {
-        ChannelWrapper cw = slackService.getChannelInfo(channel);
+    public Channel getChannelInfo(String channelId) throws Exception {
+        ChannelWrapper cw = slackService.getChannelInfo(channelId);
         if (!cw.isOk()) {
             throw new Exception(cw.getError());
         }
@@ -105,12 +106,84 @@ public class SlackClient {
     }
 
     /**
-     * Gives ability to join a channel with a given name, if channel doesn't exist it will be created.
-     * @param channel The channel name
+     * Gives ability to create a channel with a given name.
+     * @param channelName The channel name
      * @return Channel
      */
-    public Channel joinChannel(String channel) throws Exception {
-        ChannelWrapper cw = slackService.joinChannel(channel);
+    public Channel createChannel(String channelName) throws Exception {
+        ChannelWrapper cw = slackService.createChannel(channelName);
+        if (!cw.isOk()) {
+            throw new Exception(cw.getError());
+        }
+        return cw.getChannel();
+    }
+
+    /**
+     * Gives ability to archive a channel with a given Id.
+     * @param channelId The channel Id
+     */
+    public void archiveChannel(String channelId) throws Exception {
+        Map<String, Object> response = slackService.archiveChannel(channelId);
+        if (!((Boolean)response.get("ok"))) {
+            throw new Exception(response.get("error").toString());
+        }
+    }
+
+    /**
+     * Gives ability to unarchive a channel with a given Id.
+     * @param channelId The channel Id
+     */
+    public void unarchiveChannel(String channelId) throws Exception {
+        Map<String, Object> response = slackService.unarchiveChannel(channelId);
+        if (!((Boolean)response.get("ok"))) {
+            throw new Exception(response.get("error").toString());
+        }
+    }
+
+    /**
+     * Gives ability to join a channel with a given name, if channel doesn't exist it will be created.
+     * @param channelName The channel name
+     * @return Channel
+     */
+    public Channel joinChannel(String channelName) throws Exception {
+        ChannelWrapper cw = slackService.joinChannel(channelName);
+        if (!cw.isOk()) {
+            throw new Exception(cw.getError());
+        }
+        return cw.getChannel();
+    }
+
+    /**
+     * Gives ability to kick a user from a given channel.
+     * @param channelId The channel Id
+     * @param userId The user Id to Kick
+     */
+    public void kickChannel(String channelId, String userId) throws Exception {
+        Map<String, Object> response = slackService.kickChannel(channelId, userId);
+        if (!((Boolean)response.get("ok"))) {
+            throw new Exception(response.get("error").toString());
+        }
+    }
+
+    /**
+     * Gives ability to leave a channel
+     * @param channelId The channel Id
+     */
+    public void leaveChannel(String channelId) throws Exception {
+        Map<String, Object> response = slackService.leaveChannel(channelId);
+        if (!((Boolean)response.get("ok"))) {
+            throw new Exception(response.get("error").toString());
+        }
+    }
+
+    /**
+     * Gives ability to rename a channel.
+     * @param channelId The channel Id of the channel to rename
+     * @param newChannelName The new channel name
+     * @return Channel
+     */
+    public Channel renameChannel(String channelId, String newChannelName) throws Exception {
+        ChannelWrapper cw = slackService.renameChannel(channelId, newChannelName);
         if (!cw.isOk()) {
             throw new Exception(cw.getError());
         }

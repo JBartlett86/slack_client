@@ -1,0 +1,9 @@
+{
+  "ok": true,
+  "channel": {
+    "id": "TESTCHANNEL1",
+    "is_channel": true,
+    "name": "newname",
+    "created": 1440107077
+  }
+}

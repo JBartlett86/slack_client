@@ -192,6 +192,126 @@ public class SlackClientTest {
     }
 
     /**
+     * Test channels.create api call using retrofit, tests the following;
+     *
+     * 1) The correct request format is sent
+     * 2) A successful response is correctly handled and returned
+     * 3) An invalid request being sent (e.g. no name) is handled as expected
+     */
+    @Test
+    public void testCreateChannel() throws Exception {
+        // mock the expected response from the retrofit call and also validate the request format
+        SlackClient sc = new SlackClient("accesstoken", new Client() {
+            @Override
+            public Response execute(Request request) throws IOException {
+                if (request.getUrl().contains("testchannelfail")) {
+                    assertEquals("https://slack.com/api/channels.create?name=testchannelfail&token=accesstoken", request.getUrl());
+                    return new Response("urlhere", 200, "nothing", Collections.EMPTY_LIST, new TypedString("{ok:false,error:name_taken}"));
+                } else {
+                    assertEquals("https://slack.com/api/channels.create?name=testchannel&token=accesstoken", request.getUrl());
+                    return new Response("urlhere", 200, "nothing", Collections.EMPTY_LIST, new TypedFile("application/json", new File("src/test/resources/createChannelResponse.json")));
+                }
+            }
+        });
+
+        Channel channel = sc.createChannel("testchannel");
+        assertNotNull(channel);
+        assertEquals("testchannel", channel.getName());
+        assertEquals(1, channel.getMembers().size()); // added creator as member
+
+        Exception e = null;
+        try {
+            sc.createChannel("testchannelfail");
+        } catch (Exception exception) {
+            e = exception;
+        }
+
+        assertNotNull(e);
+        assertEquals("name_taken", e.getMessage());
+
+    }
+
+    /**
+     * Test channels.archive api call using retrofit, tests the following;
+     *
+     * 1) The correct request format is sent
+     * 2) A successful response is correctly handled and returned
+     * 3) An invalid request being sent (e.g. no name) is handled as expected
+     */
+    @Test
+    public void testArchiveChannel() throws Exception {
+
+        // mock the expected response from the retrofit call and also validate the request format
+        SlackClient sc = new SlackClient("accesstoken", new Client() {
+            @Override
+            public Response execute(Request request) throws IOException {
+                if (request.getUrl().contains("testchannelfail")) {
+                    assertEquals("https://slack.com/api/channels.archive?channel=testchannelfail&token=accesstoken", request.getUrl());
+                    return new Response("urlhere", 200, "nothing", Collections.EMPTY_LIST, new TypedString("{ok:false,error:channel_not_found}"));
+                } else {
+                    assertEquals("https://slack.com/api/channels.archive?channel=testchannel&token=accesstoken", request.getUrl());
+                    return new Response("urlhere", 200, "nothing", Collections.EMPTY_LIST, new TypedString("{ok:true}"));
+                }
+            }
+
+
+        });
+
+        // test archiving the channel
+        sc.archiveChannel("testchannel");
+
+        Exception e = null;
+        try {
+            sc.archiveChannel("testchannelfail");
+        } catch (Exception exception) {
+            e = exception;
+        }
+
+        assertNotNull(e);
+        assertEquals("channel_not_found", e.getMessage());
+    }
+
+    /**
+     * Test channels.archive api call using retrofit, tests the following;
+     *
+     * 1) The correct request format is sent
+     * 2) A successful response is correctly handled and returned
+     * 3) An invalid request being sent (e.g. no name) is handled as expected
+     */
+    @Test
+    public void testUnArchiveChannel() throws Exception {
+
+        // mock the expected response from the retrofit call and also validate the request format
+        SlackClient sc = new SlackClient("accesstoken", new Client() {
+            @Override
+            public Response execute(Request request) throws IOException {
+                if (request.getUrl().contains("testchannelfail")) {
+                    assertEquals("https://slack.com/api/channels.unarchive?channel=testchannelfail&token=accesstoken", request.getUrl());
+                    return new Response("urlhere", 200, "nothing", Collections.EMPTY_LIST, new TypedString("{ok:false,error:channel_not_found}"));
+                } else {
+                    assertEquals("https://slack.com/api/channels.unarchive?channel=testchannel&token=accesstoken", request.getUrl());
+                    return new Response("urlhere", 200, "nothing", Collections.EMPTY_LIST, new TypedString("{ok:true}"));
+                }
+            }
+
+
+        });
+
+        // test archiving the channel
+        sc.unarchiveChannel("testchannel");
+
+        Exception e = null;
+        try {
+            sc.unarchiveChannel("testchannelfail");
+        } catch (Exception exception) {
+            e = exception;
+        }
+
+        assertNotNull(e);
+        assertEquals("channel_not_found", e.getMessage());
+    }
+
+    /**
      * Test channels.join api call using retrofit, tests the following;
      *
      * 1) The correct request format is sent
@@ -235,4 +355,123 @@ public class SlackClientTest {
         assertEquals("no_channel", e.getMessage());
 
     }
+
+    /**
+     * Test channels.kick api call using retrofit, tests the following;
+     *
+     * 1) The correct request format is sent
+     * 2) A successful response is correctly handled and returned
+     * 3) An invalid request being sent (e.g. no name) is handled as expected
+     */
+    @Test
+    public void testKickChannel() throws Exception {
+        // mock the expected response from the retrofit call and also validate the request format
+        SlackClient sc = new SlackClient("accesstoken", new Client() {
+            @Override
+            public Response execute(Request request) throws IOException {
+                if (request.getUrl().contains("testchannelfail")) {
+                    assertEquals("https://slack.com/api/channels.kick?channel=testchannelfail&user=testuser&token=accesstoken", request.getUrl());
+                    return new Response("urlhere", 200, "nothing", Collections.EMPTY_LIST, new TypedString("{ok:false,error:cant_kick_self}"));
+                } else {
+                    assertEquals("https://slack.com/api/channels.kick?channel=testchannel&user=testuser&token=accesstoken", request.getUrl());
+                    return new Response("urlhere", 200, "nothing", Collections.EMPTY_LIST, new TypedString("{ok:true}"));
+                }
+            }
+        });
+
+        sc.kickChannel("testchannel", "testuser");
+
+        Exception e = null;
+        try {
+            sc.kickChannel("testchannelfail", "testuser");
+        } catch (Exception exception) {
+            e = exception;
+        }
+
+        assertNotNull(e);
+        assertEquals("cant_kick_self", e.getMessage());
+
+    }
+
+    /**
+     * Test channels.leave api call using retrofit, tests the following;
+     *
+     * 1) The correct request format is sent
+     * 2) A successful response is correctly handled and returned
+     * 3) An invalid request being sent (e.g. no name) is handled as expected
+     */
+    @Test
+    public void testLeaveChannel() throws Exception {
+        // mock the expected response from the retrofit call and also validate the request format
+        SlackClient sc = new SlackClient("accesstoken", new Client() {
+            @Override
+            public Response execute(Request request) throws IOException {
+                if (request.getUrl().contains("testchannelfail")) {
+                    assertEquals("https://slack.com/api/channels.leave?channel=testchannelfail&token=accesstoken", request.getUrl());
+                    return new Response("urlhere", 200, "nothing", Collections.EMPTY_LIST, new TypedString("{ok:false,error:channel_not_found}"));
+                } else {
+                    assertEquals("https://slack.com/api/channels.leave?channel=testchannel&token=accesstoken", request.getUrl());
+                    return new Response("urlhere", 200, "nothing", Collections.EMPTY_LIST, new TypedString("{ok:true}"));
+                }
+            }
+        });
+
+        // test successful response
+        sc.leaveChannel("testchannel");
+
+        // test failing response
+        Exception e = null;
+        try {
+            sc.leaveChannel("testchannelfail");
+        } catch (Exception exception) {
+            e = exception;
+        }
+
+        assertNotNull(e);
+        assertEquals("channel_not_found", e.getMessage());
+
+    }
+
+    /**
+     * Test channels.rename api call using retrofit, tests the following;
+     *
+     * 1) The correct request format is sent
+     * 2) A successful response is correctly handled and returned
+     * 3) An invalid request being sent (e.g. no name) is handled as expected
+     */
+    @Test
+    public void testRenameChannel() throws Exception {
+        // mock the expected response from the retrofit call and also validate the request format
+        SlackClient sc = new SlackClient("accesstoken", new Client() {
+            @Override
+            public Response execute(Request request) throws IOException {
+                if (request.getUrl().contains("testchannelfail")) {
+                    assertEquals("https://slack.com/api/channels.rename?channel=testchannelfail&name=newname&token=accesstoken", request.getUrl());
+                    return new Response("urlhere", 200, "nothing", Collections.EMPTY_LIST, new TypedString("{ok:false,error:channel_not_found}"));
+                } else {
+                    assertEquals("https://slack.com/api/channels.rename?channel=testchannel&name=newname&token=accesstoken", request.getUrl());
+                    return new Response("urlhere", 200, "nothing", Collections.EMPTY_LIST, new TypedFile("application/json", new File("src/test/resources/renameChannelResponse.json")));
+                }
+            }
+        });
+
+        // test successful response
+        Channel channel = sc.renameChannel("testchannel", "newname");
+        assertEquals("newname", channel.getName());
+
+
+        // test failing response
+        Exception e = null;
+        try {
+            sc.renameChannel("testchannelfail", "newname");
+        } catch (Exception exception) {
+            e = exception;
+        }
+
+        assertNotNull(e);
+        assertEquals("channel_not_found", e.getMessage());
+
+    }
+
+
 }
