@@ -1,11 +1,5 @@
 package com.jbartlett.slack;
 
-import com.google.api.client.auth.oauth2.*;
-import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
-import com.google.api.client.http.*;
-import com.google.api.client.http.javanet.NetHttpTransport;
-import com.google.api.client.json.jackson2.JacksonFactory;
-import com.google.api.client.util.store.FileDataStoreFactory;
 import com.jbartlett.slack.model.Authority;
 import com.jbartlett.slack.model.Channel;
 import com.jbartlett.slack.model.User;
@@ -16,11 +10,10 @@ import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
 import retrofit.client.Client;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
-import static retrofit.RestAdapter.*;
+import static retrofit.RestAdapter.Builder;
+import static retrofit.RestAdapter.LogLevel;
 
 /**
  * A simple, retrofit based client to allow CRUD access to a Slack Team.

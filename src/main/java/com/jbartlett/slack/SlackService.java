@@ -1,7 +1,6 @@
 package com.jbartlett.slack;
 
 import com.jbartlett.slack.model.Authority;
-import com.jbartlett.slack.model.Channel;
 import com.jbartlett.slack.model.wrappers.ChannelWrapper;
 import com.jbartlett.slack.model.wrappers.ChannelsWrapper;
 import com.jbartlett.slack.model.wrappers.UserWrapper;
