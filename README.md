@@ -8,31 +8,6 @@ A Java based client for [Slack](http://slack.com) that allows simple access to t
 
 Authentication is required before the client can be used and is performing using OAuth 2.0.
 
-## Obtaining an authenticated credential
-
-A generic service has been written for obtaining a authenticated credential using the Google Client API.
-
-```java
-AuthenticationService authenticationService = new AuthenticationService();
-Credential credential = authenticationService.authorise("Token Server URL Here", "Authorisation Server URL Here", "OAuth Key here", "OAuth Secret Here", "Optional Extra Query Args Here");
-```
-
-You can then use this authentication mechanism with slack as follows;
-
-```java
-AuthenticationService authenticationService = new AuthenticationService();
-
-Map<String, Object> queryArgs = new HashMap<String, Object>();
-queryArgs.put("team", "Team ID Here");
-
-Credential credential = authenticationService.authorise("https://slack.com/api/oauth.access", "https://slack.com/oauth/authorize", "OAuth Key here", "OAuth Secret Here", queryArgs);
-
-// now use credential to access the Slack Rest API
-```
-
-Once you have an authenticated credential instance you can use it to access the various entities and rich information that Slack
-provides for the specified account.
-
 ## Accessing the Slack Rest API
 
 The Slack Rest API is accessed by instantiating the SlackClient using a valid access token, this can be retrieved from the Credential returned during authenitciation
