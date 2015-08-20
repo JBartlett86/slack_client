@@ -19,3 +19,6 @@ build/
 # IntelliJ
 .idea/
 *.iml
+
+# OS X files
+.DS_Store
