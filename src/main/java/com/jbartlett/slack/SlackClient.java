@@ -33,16 +33,20 @@ public class SlackClient {
     private SlackService slackService;
 
     public SlackClient(String accessToken) {
-        this(accessToken, null);
+        this(accessToken, LogLevel.BASIC, null);
     }
 
-    public SlackClient(final String accessToken, final Client client) {
+    public SlackClient(String accessToken, RestAdapter.LogLevel logLevel) {
+        this(accessToken, logLevel, null);
+    }
+
+    public SlackClient(final String accessToken, RestAdapter.LogLevel logLevel, final Client client) {
         Builder builder = new Builder()
                 .setEndpoint("https://slack.com/api/");
         if (client != null) {
             builder.setClient(client);
         }
-        //builder.setLogLevel(RestAdapter.LogLevel.FULL);
+        builder.setLogLevel(logLevel);
         builder.setRequestInterceptor(new RequestInterceptor() {
 
             @Override
