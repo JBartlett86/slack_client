@@ -5,6 +5,7 @@ import com.jbartlett.slack.model.Channel;
 import com.jbartlett.slack.model.User;
 import org.junit.Test;
 import retrofit.client.Client;
+import retrofit.client.Header;
 import retrofit.client.Request;
 import retrofit.client.Response;
 import retrofit.mime.TypedFile;
@@ -12,7 +13,7 @@ import retrofit.mime.TypedString;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,7 +40,7 @@ public class SlackClientTest {
             @Override
             public Response execute(Request request) throws IOException {
                 assertEquals("https://slack.com/api/auth.test?token=accesstoken", request.getUrl());
-                return new Response("urlhere", 200, "nothing", Collections.EMPTY_LIST, new TypedFile("application/json", new File("src/test/resources/getAuthorityResponse.json")));
+                return new Response("urlhere", 200, "nothing", new ArrayList<Header>(), new TypedFile("application/json", new File("src/test/resources/getAuthorityResponse.json")));
             }
         });
 
@@ -67,7 +68,7 @@ public class SlackClientTest {
             @Override
             public Response execute(Request request) throws IOException {
                 assertEquals("https://slack.com/api/users.list?token=accesstoken", request.getUrl());
-                return new Response("urlhere", 200, "nothing", Collections.EMPTY_LIST, new TypedFile("application/json", new File("src/test/resources/getUserListResponse.json")));
+                return new Response("urlhere", 200, "nothing", new ArrayList<Header>(), new TypedFile("application/json", new File("src/test/resources/getUserListResponse.json")));
             }
         });
 
@@ -125,10 +126,10 @@ public class SlackClientTest {
                 // check for valid vs invalid request
                 if (request.getUrl().contains("user=testuser")) {
                     assertEquals("https://slack.com/api/users.info?user=testuser&token=accesstoken", request.getUrl());
-                    return new Response("urlhere", 200, "nothing", Collections.EMPTY_LIST, new TypedFile("application/json", new File("src/test/resources/getUserInfoResponse.json")));
+                    return new Response("urlhere", 200, "nothing", new ArrayList<Header>(), new TypedFile("application/json", new File("src/test/resources/getUserInfoResponse.json")));
                 } else {
                     assertEquals("https://slack.com/api/users.info?user=&token=accesstoken", request.getUrl());
-                    return new Response("urlhere", 200, "nothing", Collections.EMPTY_LIST, new TypedString("{ok:false,error:no_user}"));
+                    return new Response("urlhere", 200, "nothing", new ArrayList<Header>(), new TypedString("{ok:false,error:no_user}"));
                 }
 
             }
@@ -184,7 +185,7 @@ public class SlackClientTest {
             @Override
             public Response execute(Request request) throws IOException {
                 assertEquals("https://slack.com/api/channels.list?token=accesstoken", request.getUrl());
-                return new Response("urlhere", 200, "nothing", Collections.EMPTY_LIST, new TypedFile("application/json", new File("src/test/resources/getChannelListResponse.json")));
+                return new Response("urlhere", 200, "nothing", new ArrayList<Header>(), new TypedFile("application/json", new File("src/test/resources/getChannelListResponse.json")));
             }
         });
 
@@ -226,7 +227,7 @@ public class SlackClientTest {
             @Override
             public Response execute(Request request) throws IOException {
                 assertEquals("https://slack.com/api/channels.info?channel=testchannel&token=accesstoken", request.getUrl());
-                return new Response("urlhere", 200, "nothing", Collections.EMPTY_LIST, new TypedFile("application/json", new File("src/test/resources/getChannelInfoResponse.json")));
+                return new Response("urlhere", 200, "nothing", new ArrayList<Header>(), new TypedFile("application/json", new File("src/test/resources/getChannelInfoResponse.json")));
             }
         });
 
@@ -274,10 +275,10 @@ public class SlackClientTest {
             public Response execute(Request request) throws IOException {
                 if (request.getUrl().contains("testchannelfail")) {
                     assertEquals("https://slack.com/api/channels.create?name=testchannelfail&token=accesstoken", request.getUrl());
-                    return new Response("urlhere", 200, "nothing", Collections.EMPTY_LIST, new TypedString("{ok:false,error:name_taken}"));
+                    return new Response("urlhere", 200, "nothing", new ArrayList<Header>(), new TypedString("{ok:false,error:name_taken}"));
                 } else {
                     assertEquals("https://slack.com/api/channels.create?name=testchannel&token=accesstoken", request.getUrl());
-                    return new Response("urlhere", 200, "nothing", Collections.EMPTY_LIST, new TypedFile("application/json", new File("src/test/resources/createChannelResponse.json")));
+                    return new Response("urlhere", 200, "nothing", new ArrayList<Header>(), new TypedFile("application/json", new File("src/test/resources/createChannelResponse.json")));
                 }
             }
         });
@@ -315,10 +316,10 @@ public class SlackClientTest {
             public Response execute(Request request) throws IOException {
                 if (request.getUrl().contains("testchannelfail")) {
                     assertEquals("https://slack.com/api/channels.archive?channel=testchannelfail&token=accesstoken", request.getUrl());
-                    return new Response("urlhere", 200, "nothing", Collections.EMPTY_LIST, new TypedString("{ok:false,error:channel_not_found}"));
+                    return new Response("urlhere", 200, "nothing", new ArrayList<Header>(), new TypedString("{ok:false,error:channel_not_found}"));
                 } else {
                     assertEquals("https://slack.com/api/channels.archive?channel=testchannel&token=accesstoken", request.getUrl());
-                    return new Response("urlhere", 200, "nothing", Collections.EMPTY_LIST, new TypedString("{ok:true}"));
+                    return new Response("urlhere", 200, "nothing", new ArrayList<Header>(), new TypedString("{ok:true}"));
                 }
             }
 
@@ -355,10 +356,10 @@ public class SlackClientTest {
             public Response execute(Request request) throws IOException {
                 if (request.getUrl().contains("testchannelfail")) {
                     assertEquals("https://slack.com/api/channels.unarchive?channel=testchannelfail&token=accesstoken", request.getUrl());
-                    return new Response("urlhere", 200, "nothing", Collections.EMPTY_LIST, new TypedString("{ok:false,error:channel_not_found}"));
+                    return new Response("urlhere", 200, "nothing", new ArrayList<Header>(), new TypedString("{ok:false,error:channel_not_found}"));
                 } else {
                     assertEquals("https://slack.com/api/channels.unarchive?channel=testchannel&token=accesstoken", request.getUrl());
-                    return new Response("urlhere", 200, "nothing", Collections.EMPTY_LIST, new TypedString("{ok:true}"));
+                    return new Response("urlhere", 200, "nothing", new ArrayList<Header>(), new TypedString("{ok:true}"));
                 }
             }
 
@@ -395,10 +396,10 @@ public class SlackClientTest {
                 // check for valid vs invalid request
                 if (request.getUrl().contains("name=testChannel")) {
                     assertEquals("https://slack.com/api/channels.join?name=testChannel&token=accesstoken", request.getUrl());
-                    return new Response("urlhere", 200, "nothing", Collections.EMPTY_LIST, new TypedFile("application/json", new File("src/test/resources/joinChannelResponse.json")));
+                    return new Response("urlhere", 200, "nothing", new ArrayList<Header>(), new TypedFile("application/json", new File("src/test/resources/joinChannelResponse.json")));
                 } else {
                     assertEquals("https://slack.com/api/channels.join?name=&token=accesstoken", request.getUrl());
-                    return new Response("urlhere", 200, "nothing", Collections.EMPTY_LIST, new TypedString("{ok:false,error:no_channel}"));
+                    return new Response("urlhere", 200, "nothing", new ArrayList<Header>(), new TypedString("{ok:false,error:no_channel}"));
                 }
 
             }
@@ -439,10 +440,10 @@ public class SlackClientTest {
             public Response execute(Request request) throws IOException {
                 if (request.getUrl().contains("testchannelfail")) {
                     assertEquals("https://slack.com/api/channels.kick?channel=testchannelfail&user=testuser&token=accesstoken", request.getUrl());
-                    return new Response("urlhere", 200, "nothing", Collections.EMPTY_LIST, new TypedString("{ok:false,error:cant_kick_self}"));
+                    return new Response("urlhere", 200, "nothing", new ArrayList<Header>(), new TypedString("{ok:false,error:cant_kick_self}"));
                 } else {
                     assertEquals("https://slack.com/api/channels.kick?channel=testchannel&user=testuser&token=accesstoken", request.getUrl());
-                    return new Response("urlhere", 200, "nothing", Collections.EMPTY_LIST, new TypedString("{ok:true}"));
+                    return new Response("urlhere", 200, "nothing", new ArrayList<Header>(), new TypedString("{ok:true}"));
                 }
             }
         });
@@ -476,10 +477,10 @@ public class SlackClientTest {
             public Response execute(Request request) throws IOException {
                 if (request.getUrl().contains("testchannelfail")) {
                     assertEquals("https://slack.com/api/channels.leave?channel=testchannelfail&token=accesstoken", request.getUrl());
-                    return new Response("urlhere", 200, "nothing", Collections.EMPTY_LIST, new TypedString("{ok:false,error:channel_not_found}"));
+                    return new Response("urlhere", 200, "nothing", new ArrayList<Header>(), new TypedString("{ok:false,error:channel_not_found}"));
                 } else {
                     assertEquals("https://slack.com/api/channels.leave?channel=testchannel&token=accesstoken", request.getUrl());
-                    return new Response("urlhere", 200, "nothing", Collections.EMPTY_LIST, new TypedString("{ok:true}"));
+                    return new Response("urlhere", 200, "nothing", new ArrayList<Header>(), new TypedString("{ok:true}"));
                 }
             }
         });
@@ -515,10 +516,10 @@ public class SlackClientTest {
             public Response execute(Request request) throws IOException {
                 if (request.getUrl().contains("testchannelfail")) {
                     assertEquals("https://slack.com/api/channels.rename?channel=testchannelfail&name=newname&token=accesstoken", request.getUrl());
-                    return new Response("urlhere", 200, "nothing", Collections.EMPTY_LIST, new TypedString("{ok:false,error:channel_not_found}"));
+                    return new Response("urlhere", 200, "nothing", new ArrayList<Header>(), new TypedString("{ok:false,error:channel_not_found}"));
                 } else {
                     assertEquals("https://slack.com/api/channels.rename?channel=testchannel&name=newname&token=accesstoken", request.getUrl());
-                    return new Response("urlhere", 200, "nothing", Collections.EMPTY_LIST, new TypedFile("application/json", new File("src/test/resources/renameChannelResponse.json")));
+                    return new Response("urlhere", 200, "nothing", new ArrayList<Header>(), new TypedFile("application/json", new File("src/test/resources/renameChannelResponse.json")));
                 }
             }
         });
@@ -557,10 +558,10 @@ public class SlackClientTest {
                 // check for valid vs invalid request
                 if (request.getUrl().contains("channel=testChannel")) {
                     assertEquals("https://slack.com/api/channels.invite?channel=testChannel&user=testuser&token=accesstoken", request.getUrl());
-                    return new Response("urlhere", 200, "nothing", Collections.EMPTY_LIST, new TypedFile("application/json", new File("src/test/resources/joinChannelResponse.json")));
+                    return new Response("urlhere", 200, "nothing", new ArrayList<Header>(), new TypedFile("application/json", new File("src/test/resources/joinChannelResponse.json")));
                 } else {
                     assertEquals("https://slack.com/api/channels.invite?channel=&user=testuser&token=accesstoken", request.getUrl());
-                    return new Response("urlhere", 200, "nothing", Collections.EMPTY_LIST, new TypedString("{ok:false,error:no_channel}"));
+                    return new Response("urlhere", 200, "nothing", new ArrayList<Header>(), new TypedString("{ok:false,error:no_channel}"));
                 }
 
             }

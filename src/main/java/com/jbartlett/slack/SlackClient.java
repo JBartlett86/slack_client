@@ -24,7 +24,7 @@ import static retrofit.RestAdapter.LogLevel;
  */
 public class SlackClient {
 
-    private SlackService slackService;
+    private final SlackService slackService;
 
     public SlackClient(String accessToken) {
         this(accessToken, LogLevel.BASIC, null);
