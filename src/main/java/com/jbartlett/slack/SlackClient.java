@@ -19,7 +19,6 @@ import static retrofit.RestAdapter.LogLevel;
 
 /**
  * A simple, retrofit based client to allow CRUD access to a Slack Team.
- * Utilises OAuth2 to provide suitable authentication before an instance can be supplied for use.
  * <p/>
  * Created by johnbartlett on 17/08/15.
  */
@@ -197,6 +196,20 @@ public class SlackClient {
      */
     public Channel renameChannel(String channelId, String newChannelName) throws Exception {
         ChannelWrapper cw = slackService.renameChannel(channelId, newChannelName);
+        if (!cw.isOk()) {
+            throw new Exception(cw.getError());
+        }
+        return cw.getChannel();
+    }
+
+    /**
+     * Gives ability to invite a user to a channel.
+     * @param channelId The channel Id
+     * @param userId The user Id to invite to the channel
+     * @return Channel
+     */
+    public Channel inviteChannel(String channelId, String userId) throws Exception {
+        ChannelWrapper cw = slackService.inviteChannel(channelId, userId);
         if (!cw.isOk()) {
             throw new Exception(cw.getError());
         }

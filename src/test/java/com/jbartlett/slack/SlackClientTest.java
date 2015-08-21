@@ -541,5 +541,50 @@ public class SlackClientTest {
 
     }
 
+    /**
+     * Test channels.invite api call using retrofit, tests the following;
+     *
+     * 1) The correct request format is sent
+     * 2) A successful response is correctly handled and returned
+     * 3) An invalid request being sent (e.g. no name) is handled as expected
+     */
+    @Test
+    public void testInviteChannel() throws Exception {
+        // mock the expected response from the retrofit call and also validate the request format
+        SlackClient sc = new SlackClient("accesstoken", new Client() {
+            @Override
+            public Response execute(Request request) throws IOException {
+                // check for valid vs invalid request
+                if (request.getUrl().contains("channel=testChannel")) {
+                    assertEquals("https://slack.com/api/channels.invite?channel=testChannel&user=testuser&token=accesstoken", request.getUrl());
+                    return new Response("urlhere", 200, "nothing", Collections.EMPTY_LIST, new TypedFile("application/json", new File("src/test/resources/joinChannelResponse.json")));
+                } else {
+                    assertEquals("https://slack.com/api/channels.invite?channel=&user=testuser&token=accesstoken", request.getUrl());
+                    return new Response("urlhere", 200, "nothing", Collections.EMPTY_LIST, new TypedString("{ok:false,error:no_channel}"));
+                }
+
+            }
+        });
+
+        // Test valid invite to a channel
+        Channel channel = sc.inviteChannel("testChannel", "testuser");
+        assertNotNull(channel);
+        assertEquals("testChannel", channel.getName());
+        assertEquals(1, channel.getMembers().size());
+
+        // Test inviting to a channel without a channel id being supplied fails and is correctly handled
+        Exception e = null;
+        try {
+            sc.inviteChannel("", "testuser");
+        } catch (Exception exception) {
+            e = exception;
+        }
+
+        // validate the exception
+        assertNotNull(e);
+        assertEquals("no_channel", e.getMessage());
+
+    }
+
 
 }

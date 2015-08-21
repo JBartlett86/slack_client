@@ -53,4 +53,7 @@ public interface SlackService {
     @PUT("/channels.rename")
     public ChannelWrapper renameChannel(@Query("channel") String channelId, @Query("name") String newChannelName);
 
+    @PUT("/channels.invite")
+    public ChannelWrapper inviteChannel(@Query("channel") String channelId, @Query("user") String userId);
+
 }

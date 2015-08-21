@@ -34,6 +34,14 @@ This method is used for getting details of the users within the team.
 List<User> users = slackClient.getUserList();
 ```
 
+### [users.info](https://api.slack.com/methods/users.info)
+
+This method is used for getting details for an individual user in the team.
+
+```java
+User user = slackClient.getUserInfo("User ID Here");
+```
+
 ### [channels.list](https://api.slack.com/methods/channels.list)
 
 This method is used for getting details of the channels within the team.
@@ -105,6 +113,14 @@ This method is used to rename a channel.
 
 ```java
 Channel channel = slackClient.renameChannel("Channel ID Here", "New Channel Name Here");
+```
+
+### [channels.invite](https://api.slack.com/methods/channels.invite)
+
+This method is used to invite a user to a channel.
+
+```java
+Channel channel = slackClient.inviteChannel("Channel ID Here", "User ID Here");
 ```
 
 If an error occurs with any of the API calls an exception is thrown where the error reason is the message of the exception.
