@@ -89,6 +89,10 @@ public class SlackClientTest {
         assertEquals("TESTUSER1", user.getId());
         assertEquals("john", user.getName());
         assertFalse(user.isDeleted());
+        assertNull(user.getStatus());
+        assertEquals("Europe/London", user.getTimezone());
+        assertEquals("British Summer Time", user.getTimezoneLabel());
+        assertEquals(new Long(3600), user.getTimezoneOffset());
         assertEquals("3c989f", user.getColour());
         assertEquals("John Doe", user.getRealName());
         assertEquals("John", user.getFirstName());
@@ -101,6 +105,70 @@ public class SlackClientTest {
         assertFalse(user.isPrimaryOwner());
         assertFalse(user.isRestricted());
         assertFalse(user.isUltraRestricted());
+        assertFalse(user.isBot());
+        assertFalse(user.isHasFiles());
+    }
+
+    /**
+     * Test users.info api call using retrofit, tests the following;
+     *
+     * 1) The correct request format is sent
+     * 2) A successful response is correctly handled and returned
+     * 3) An invalid request being sent (e.g. no name) is handled as expected
+     */
+    @Test
+    public void testGetUserInfo() throws Exception {
+        // mock the expected response from the retrofit call and also validate the request format
+        SlackClient sc = new SlackClient("accesstoken", new Client() {
+            @Override
+            public Response execute(Request request) throws IOException {
+                // check for valid vs invalid request
+                if (request.getUrl().contains("user=testuser")) {
+                    assertEquals("https://slack.com/api/users.info?user=testuser&token=accesstoken", request.getUrl());
+                    return new Response("urlhere", 200, "nothing", Collections.EMPTY_LIST, new TypedFile("application/json", new File("src/test/resources/getUserInfoResponse.json")));
+                } else {
+                    assertEquals("https://slack.com/api/users.info?user=&token=accesstoken", request.getUrl());
+                    return new Response("urlhere", 200, "nothing", Collections.EMPTY_LIST, new TypedString("{ok:false,error:no_user}"));
+                }
+
+            }
+        });
+
+        User user = sc.getUserInfo("testuser");
+
+        // validate individual user attributes mapped correctly
+        assertEquals("TESTUSER1", user.getId());
+        assertEquals("john", user.getName());
+        assertFalse(user.isDeleted());
+        assertNull(user.getStatus());
+        assertEquals("Europe/London", user.getTimezone());
+        assertEquals("British Summer Time", user.getTimezoneLabel());
+        assertEquals(new Long(3600), user.getTimezoneOffset());
+        assertEquals("4bbe2e", user.getColour());
+        assertEquals("John Doe", user.getRealName());
+        assertEquals("John", user.getFirstName());
+        assertEquals("Doe", user.getLastName());
+        assertEquals("john@doe.com", user.getEmail());
+        assertEquals(null, user.getSkype());
+        assertEquals(null, user.getPhone());
+        assertTrue(user.isAdmin());
+        assertFalse(user.isOwner());
+        assertFalse(user.isPrimaryOwner());
+        assertFalse(user.isRestricted());
+        assertFalse(user.isUltraRestricted());
+        assertFalse(user.isBot());
+        assertTrue(user.isHasFiles());
+
+        // test failures are handled correctly
+        Exception e = null;
+        try {
+            sc.getUserInfo("");
+        } catch (Exception ex) {
+            e = ex;
+        }
+
+        assertNotNull(e);
+        assertEquals("no_user", e.getMessage());
     }
 
     /**

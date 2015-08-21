@@ -4,10 +4,12 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.jbartlett.slack.model.User;
 
+import java.util.List;
+
 /**
- * Created by johnbartlett on 21/08/15.
+ * Created by johnbartlett on 18/08/15.
  */
-public class UserWrapper<T> {
+public class UsersWrapper {
 
     @SerializedName("ok")
     @Expose
@@ -17,31 +19,20 @@ public class UserWrapper<T> {
     @Expose
     private String error;
 
-    @SerializedName("user")
+    @SerializedName("members")
     @Expose
-    private User user;
+    private List<User> users;
 
     public boolean isOk() {
         return ok;
-    }
-
-    public void setOk(boolean ok) {
-        this.ok = ok;
     }
 
     public String getError() {
         return error;
     }
 
-    public void setError(String error) {
-        this.error = error;
+    public List<User> getUsers() {
+        return users;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 }

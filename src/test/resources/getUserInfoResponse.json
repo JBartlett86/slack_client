@@ -1,0 +1,34 @@
+{
+  "ok": true,
+  "user": {
+    "id": "TESTUSER1",
+    "name": "john",
+    "deleted": false,
+    "status": null,
+    "color": "4bbe2e",
+    "real_name": "John Doe",
+    "tz": "Europe\/London",
+    "tz_label": "British Summer Time",
+    "tz_offset": 3600,
+    "profile": {
+      "first_name": "John",
+      "last_name": "Doe",
+      "real_name": "John Doe",
+      "real_name_normalized": "John Doe",
+      "email": "john@doe.com",
+      "image_24": "https:\/\/secure.gravatar.com\/avatar\/ee153425672d84ae3ec66c4d986919bd.jpg?s=24&d=https%3A%2F%2Fslack.global.ssl.fastly.net%2F66f9%2Fimg%2Favatars%2Fava_0010-24.png",
+      "image_32": "https:\/\/secure.gravatar.com\/avatar\/ee153425672d84ae3ec66c4d986919bd.jpg?s=32&d=https%3A%2F%2Fslack.global.ssl.fastly.net%2F66f9%2Fimg%2Favatars%2Fava_0010-32.png",
+      "image_48": "https:\/\/secure.gravatar.com\/avatar\/ee153425672d84ae3ec66c4d986919bd.jpg?s=48&d=https%3A%2F%2Fslack.global.ssl.fastly.net%2F66f9%2Fimg%2Favatars%2Fava_0010-48.png",
+      "image_72": "https:\/\/secure.gravatar.com\/avatar\/ee153425672d84ae3ec66c4d986919bd.jpg?s=72&d=https%3A%2F%2Fslack.global.ssl.fastly.net%2F66f9%2Fimg%2Favatars%2Fava_0010-72.png",
+      "image_192": "https:\/\/secure.gravatar.com\/avatar\/ee153425672d84ae3ec66c4d986919bd.jpg?s=192&d=https%3A%2F%2Fslack.global.ssl.fastly.net%2F3654%2Fimg%2Favatars%2Fava_0010.png"
+    },
+    "is_admin": true,
+    "is_owner": false,
+    "is_primary_owner": false,
+    "is_restricted": false,
+    "is_ultra_restricted": false,
+    "is_bot": false,
+    "has_files": true,
+    "has_2fa": false
+  }
+}

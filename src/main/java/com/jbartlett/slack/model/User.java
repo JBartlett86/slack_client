@@ -24,6 +24,22 @@ public class User {
     @Expose
     private String colour;
 
+    @SerializedName("status")
+    @Expose
+    private String status;
+
+    @SerializedName("tz")
+    @Expose
+    private String timezone;
+
+    @SerializedName("tz_label")
+    @Expose
+    private String timezoneLabel;
+
+    @SerializedName("tz_offset")
+    @Expose
+    private Long timezoneOffset;
+
     @SerializedName("profile")
     @Expose
     private Profile profile;
@@ -48,6 +64,14 @@ public class User {
     @Expose
     private boolean ultraRestricted;
 
+    @SerializedName("is_bot")
+    @Expose
+    private boolean bot;
+
+    @SerializedName("has_files")
+    @Expose
+    private boolean hasFiles;
+
     public String getId() {
         return id;
     }
@@ -62,6 +86,22 @@ public class User {
 
     public String getColour() {
         return colour;
+    }
+
+    public Long getTimezoneOffset() {
+        return timezoneOffset;
+    }
+
+    public String getTimezoneLabel() {
+        return timezoneLabel;
+    }
+
+    public String getTimezone() {
+        return timezone;
+    }
+
+    public String getStatus() {
+        return status;
     }
 
     public boolean isAdmin() {
@@ -82,6 +122,14 @@ public class User {
 
     public boolean isUltraRestricted() {
         return ultraRestricted;
+    }
+
+    public boolean isBot() {
+        return bot;
+    }
+
+    public boolean isHasFiles() {
+        return hasFiles;
     }
 
     public String getFirstName() {

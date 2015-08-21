@@ -4,6 +4,7 @@ import com.jbartlett.slack.model.Authority;
 import com.jbartlett.slack.model.wrappers.ChannelWrapper;
 import com.jbartlett.slack.model.wrappers.ChannelsWrapper;
 import com.jbartlett.slack.model.wrappers.UserWrapper;
+import com.jbartlett.slack.model.wrappers.UsersWrapper;
 import retrofit.http.GET;
 import retrofit.http.PUT;
 import retrofit.http.Query;
@@ -20,7 +21,10 @@ public interface SlackService {
     public Authority getAuthority();
 
     @GET("/users.list")
-    public UserWrapper getUserList();
+    public UsersWrapper getUserList();
+
+    @GET("/users.info")
+    public UserWrapper getUserInfo(@Query("user") String userId);
 
     @GET("/channels.list")
     public ChannelsWrapper getChannelList();

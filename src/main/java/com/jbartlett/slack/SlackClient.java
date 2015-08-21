@@ -6,6 +6,7 @@ import com.jbartlett.slack.model.User;
 import com.jbartlett.slack.model.wrappers.ChannelWrapper;
 import com.jbartlett.slack.model.wrappers.ChannelsWrapper;
 import com.jbartlett.slack.model.wrappers.UserWrapper;
+import com.jbartlett.slack.model.wrappers.UsersWrapper;
 import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
 import retrofit.client.Client;
@@ -73,11 +74,23 @@ public class SlackClient {
      * @return List<User>
      */
     public List<User> getUserList() throws Exception {
-        UserWrapper uw = slackService.getUserList();
+        UsersWrapper uw = slackService.getUserList();
         if (!uw.isOk()) {
             throw new Exception(uw.getError());
         }
         return uw.getUsers();
+    }
+
+    /**
+     * Get user information
+     * @return User
+     */
+    public User getUserInfo(String userId) throws Exception {
+        UserWrapper uw = slackService.getUserInfo(userId);
+        if (!uw.isOk()) {
+            throw new Exception(uw.getError());
+        }
+        return uw.getUser();
     }
 
     /**
