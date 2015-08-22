@@ -111,6 +111,34 @@ public class SlackClientTest {
     }
 
     /**
+     * Test users.list api call using retrofit, tests the following;
+     *
+     * 1) An invalid request being sent (e.g. no name) is handled as expected
+     */
+    @Test
+    public void testGetUserListFail() throws Exception {
+        // mock the expected response from the retrofit call and also validate the request format
+        SlackClient sc = new SlackClient("accesstoken", new Client() {
+            @Override
+            public Response execute(Request request) throws IOException {
+                assertEquals("https://slack.com/api/users.list?token=accesstoken", request.getUrl());
+                return new Response("urlhere", 200, "nothing", new ArrayList<Header>(), new TypedString("{ok:false,error:invalid_auth}"));
+            }
+        });
+
+        // test failures are handled correctly
+        Exception e = null;
+        try {
+            sc.getUserList();
+        } catch (Exception ex) {
+            e = ex;
+        }
+
+        assertNotNull(e);
+        assertEquals("invalid_auth", e.getMessage());
+    }
+
+    /**
      * Test users.info api call using retrofit, tests the following;
      *
      * 1) The correct request format is sent
